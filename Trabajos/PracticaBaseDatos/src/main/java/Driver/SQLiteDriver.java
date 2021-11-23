@@ -42,8 +42,9 @@ public class SQLiteDriver {
     /**
      * Constructor privado para Singleton
      */
-    private SQLiteDriver() {
+    private SQLiteDriver(String ruta) {
         // System.out.println("Mi nombre es: " + this.nombre);
+        this.ruta=ruta;
         initConfig();
     }
 
@@ -52,9 +53,9 @@ public class SQLiteDriver {
      *
      * @return instancia del controladorBD
      */
-    public static SQLiteDriver getInstance() {
+    public static SQLiteDriver getInstance(String ruta) {
         if (controller == null) {
-            controller = new SQLiteDriver();
+            controller = new SQLiteDriver(ruta);
         }
         return controller;
     }
