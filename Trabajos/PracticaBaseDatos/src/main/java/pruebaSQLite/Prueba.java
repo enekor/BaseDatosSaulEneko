@@ -1,6 +1,8 @@
 package pruebaSQLite;
 
 import Driver.SQLiteDriver;
+import Model.pojo.Commit;
+import mapper.CommitMapper;
 
 import java.io.File;
 import java.sql.ResultSet;

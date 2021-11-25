@@ -1,9 +1,11 @@
 package Model.pojoDTO;
 
 import Model.pojo.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CommitDTO {
     private String id;
     private String titulo;
@@ -13,4 +15,5 @@ public class CommitDTO {
     private Proyecto proyect;
     private Programador autor;
     private Issue issue;
+
 }

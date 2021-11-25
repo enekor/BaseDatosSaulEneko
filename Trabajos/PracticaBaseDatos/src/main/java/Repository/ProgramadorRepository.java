@@ -16,17 +16,10 @@ public class ProgramadorRepository {
 
     static String ruta = System.getProperty("user.dir")+ File.separator+"db"+File.separator+"prueba.sqlite";
     private static SQLiteDriver driver = SQLiteDriver.getInstance(ruta);
-    private RepositoryMapper rw = new RepositoryMapper();
 
-    private List<Programador> programadoresList = new ArrayList<>();
-
-    /**
-     * select all programmers from the database
-     * @return programmer list
-     * @throws SQLException
-     */
     public List<Programador> selectAll() throws SQLException {
         List<Programador> returner = new ArrayList<>();
+
         String query = "select * from programador";
 
         Optional<ResultSet> rs = driver.select("select * from programador");
@@ -39,6 +32,8 @@ public class ProgramadorRepository {
         }
 
         driver.close();
+
+    }
         programadoresList = returner;
         return returner;
     }
