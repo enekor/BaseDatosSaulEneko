@@ -1,0 +1,2 @@
+crud
+dep(id) + info completa proyectos + datos trabajadores del proyecto

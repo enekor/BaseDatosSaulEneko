@@ -1,10 +1,8 @@
 package pruebaSQLite;
 
 import Driver.SQLiteDriver;
-import pojo.Programador;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class Prueba {
     }
 
     /**
-     * COPIAR ESTO PARA TODOS NO NOS JODAMOS LA VIDA JODER, PUTO OPTIONAL DE LOS COJONES
+     * COPIAR ESTO PARA TODOS, NO NOS JODAMOS LA VIDA JODER, PUTO OPTIONAL DE LOS COJONES
      * @return
      * @throws SQLException
      */

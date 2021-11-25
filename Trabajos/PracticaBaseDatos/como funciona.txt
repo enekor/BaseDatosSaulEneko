@@ -1,0 +1,3 @@
+vista es llamada por la clase app, llama a los metodos de controlador que le devuleva la lista de objetos que quiera la app como json o xml (con jaxb)
+controlador llama a modelo pasandole las query y crea las clases Model.pojo a partir de la informacion de los result set
+modelo usa las query para comunicarse con la bbdd y dar las clases pojo
