@@ -13,14 +13,13 @@ public class ProgramadorRepository {
 
     static String ruta = System.getProperty("user.dir")+ File.separator+"db"+File.separator+"prueba.sqlite";
     private static SQLiteDriver driver = SQLiteDriver.getInstance(ruta);
-    private
 
-    public List<Programador> selectAll() throws SQLException {
+   /* public List<Programador> selectAll() throws SQLException {
         String query = "select * from programador";
         Optional<ResultSet> rs = driver.select("select * from programador");
         while (rs.get().next()) {
 
         }
         driver.close();
-    }
+    }*/
 }

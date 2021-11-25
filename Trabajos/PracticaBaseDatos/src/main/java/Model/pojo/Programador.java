@@ -8,5 +8,7 @@ public class Programador {
     private String nombre;
     private String alta;
     private Double salario;
+    private String id_departamento;
+    private String tecnologias;
 
 }

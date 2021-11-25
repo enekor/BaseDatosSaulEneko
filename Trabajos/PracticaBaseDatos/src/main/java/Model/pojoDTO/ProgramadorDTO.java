@@ -4,12 +4,15 @@ import Model.pojo.Commit;
 import Model.pojo.Departamento;
 import Model.pojo.Issue;
 import Model.pojo.Proyecto;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class ProgramadorDTO {
+    private String id_programador;
     private String nombre;
     private String alta;
     private Departamento trabajo;
