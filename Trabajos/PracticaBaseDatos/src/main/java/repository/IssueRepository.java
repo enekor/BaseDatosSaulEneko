@@ -1,8 +1,7 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Issue;
-import Model.pojo.Programador;
 import mapper.RepositoryMapper;
 
 import java.io.File;
@@ -30,6 +29,7 @@ public class IssueRepository {
         List<Issue> returner = new ArrayList<>();
         String query = "select * from issue";
 
+        driver.open();
         Optional<ResultSet> rs = driver.select(query);
 
         while (rs.get().next()) {
@@ -38,8 +38,8 @@ public class IssueRepository {
                     rs.get().getString("titulo"), rs.get().getString("texto"), rs.get().getString("fecha"),
                     rs.get().getString("idProyecto"), rs.get().getString("idRepo"),rs.get().getBoolean("solucionado")));
         }
-
         driver.close();
+
         issuesList = returner;
         return returner;
     }
@@ -54,12 +54,14 @@ public class IssueRepository {
         Issue returner = null;
         String query = "insert into issue (id, titulo, texto, fecha, idProyecto, idRepo, solucionado) values (?,?,?,?,?,?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(query,i.getId(),i.getTitulo(),i.getTexto(),i.getFecha(),i.getId_proyecto(),i.getId_repositorio(),i.isSolucionado());
         while(rs.get().next()){
             returner = rm.datosToIssuePOJO(rs.get().getString("id"),
                     rs.get().getString("titulo"), rs.get().getString("texto"), rs.get().getString("fecha"),
                     rs.get().getString("idProyecto"), rs.get().getString("idRepo"),rs.get().getBoolean("solucionado"));
         }
+        driver.close();
 
         if(returner!=null){
             issuesList.add(returner);
@@ -91,7 +93,10 @@ public class IssueRepository {
      */
     public String update(Issue i) throws SQLException {
         String query = "update issue set titulo=?, texto=?, fecha=?, idProyecto=?, idRepo=?, solucionado=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,i.getTitulo(),i.getTexto(),i.getFecha(),i.getId_proyecto(),i.getId_repositorio(),i.isSolucionado(),i.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -120,7 +125,11 @@ public class IssueRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete issue where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }

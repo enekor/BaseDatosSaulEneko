@@ -1,4 +1,4 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Programador;
@@ -29,6 +29,7 @@ public class ProgramadorRepository {
         List<Programador> returner = new ArrayList<>();
         String query = "select * from programador";
 
+        driver.open();
         Optional<ResultSet> rs = driver.select(query);
 
         while (rs.get().next()) {
@@ -37,8 +38,8 @@ public class ProgramadorRepository {
                     rs.get().getString("nombre"), rs.get().getString("alta"),
                     rs.get().getDouble("salario")));
         }
-
         driver.close();
+
         programadoresList = returner;
         return returner;
     }
@@ -53,8 +54,10 @@ public class ProgramadorRepository {
         Programador returner = null;
         String query = "insert into programador (id, nombre, alta, salario) values (?,?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getNombre(),p.getAlta(),p.getSalario());
         while(rs.get().next()){
+            //probar a crear variables sueltas y meterlas en el metodo de crear pojo
             returner = rw.datosToPrgramadorPOJO(rs.get().getString("id"),
                     rs.get().getString("nombre"), rs.get().getString("alta"),
                     rs.get().getDouble("salario"));
@@ -63,6 +66,7 @@ public class ProgramadorRepository {
         if(returner!=null){
             programadoresList.add(returner);
         }
+        driver.close();
         return returner;
     }
 
@@ -87,7 +91,10 @@ public class ProgramadorRepository {
      */
     public String update(Programador p) throws SQLException {
         String query = "update programador set nombre=?, alta=?, salario=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,p.getNombre(),p.getAlta(),p.getSalario(),p.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -116,7 +123,11 @@ public class ProgramadorRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete programador where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }

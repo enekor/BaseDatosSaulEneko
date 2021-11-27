@@ -1,4 +1,4 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Repositorio;
@@ -29,6 +29,7 @@ public class RepositorioRepository {
         List<Repositorio> returner = new ArrayList<>();
         String query = "select * from repositorio";
 
+        driver.open();
         Optional<ResultSet> rs = driver.select(query);
 
         while (rs.get().next()) {
@@ -37,8 +38,8 @@ public class RepositorioRepository {
                     rs.get().getString("nombre"),
                     rs.get().getString("fecha")));
         }
-
         driver.close();
+
         repositoriosList = returner;
         return returner;
     }
@@ -53,12 +54,14 @@ public class RepositorioRepository {
         Repositorio returner = null;
         String query = "insert into repositorio (id, nombre, fecha) values (?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(query,r.getId(),r.getNombre(),r.getFecha());
         while(rs.get().next()){
             returner = rw.datosToRepositorioPOJO(rs.get().getString("id"),
                     rs.get().getString("nombre"),
                     rs.get().getString("fecha"));
         }
+        driver.close();
 
         if(returner!=null){
             repositoriosList.add(returner);
@@ -86,7 +89,10 @@ public class RepositorioRepository {
      */
     public String update(Repositorio r) throws SQLException {
         String query = "update repositorio set nombre=?, fecha=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,r.getNombre(),r.getFecha(),r.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -115,7 +121,11 @@ public class RepositorioRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete repositorio where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }

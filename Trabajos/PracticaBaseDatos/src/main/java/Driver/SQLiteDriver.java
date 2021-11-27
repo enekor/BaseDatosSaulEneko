@@ -153,7 +153,7 @@ public class SQLiteDriver {
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
     public Optional<ResultSet> insert(@NonNull String insertSQL, Object... params) throws SQLException {
-        // Con return generated keys obtenemos las claves generadas is las claves es autonumerica por ejemplo
+        // Con return generated keys obtenemos las claves generadas si las claves es autonumerica por ejemplo
         preparedStatement = connection.prepareStatement(insertSQL, preparedStatement.RETURN_GENERATED_KEYS);
         // Vamos a pasarle los parametros usando preparedStatement
         for (int i = 0; i < params.length; i++) {

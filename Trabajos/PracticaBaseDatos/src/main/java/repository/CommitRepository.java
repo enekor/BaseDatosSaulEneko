@@ -1,8 +1,7 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Commit;
-import Model.pojo.Programador;
 import mapper.RepositoryMapper;
 
 import java.io.File;
@@ -31,14 +30,15 @@ public class CommitRepository {
 
         Optional<ResultSet> rs = driver.select(query);
 
+        driver.open();
         while (rs.get().next()) {
 
             returner.add(rm.datosToCommitPOJO(rs.get().getString("id"), rs.get().getString("titulo"), rs.get().getString("mensaje"),
                     rs.get().getString("fecha"), rs.get().getString("idRepo"),rs.get().getString("idProyect"),
                     rs.get().getString("idAutor"), rs.get().getString("idIssue")));
         }
-
         driver.close();
+
         commitsList = returner;
         return returner;
     }
@@ -53,6 +53,7 @@ public class CommitRepository {
         Commit returner = null;
         String query = "insert into commits (id, titulo, mensaje, fecha, idRepo, idProyect, idAutor, idIssue) values (?,?,?,?,?,?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(c.getId(),c.getTitulo(),c.getMensaje(),c.getFecha(),c.getId_repositorio(),c.getId_proyecto(),c.getId_autor(),c.getId_issue());
         while(rs.get().next()){
             returner = rm.datosToCommitPOJO(rs.get().getString("id"), rs.get().getString("titulo"), rs.get().getString("mensaje"),
@@ -63,6 +64,7 @@ public class CommitRepository {
         if(returner!=null){
             commitsList.add(returner);
         }
+        driver.close();
         return returner;
     }
 
@@ -91,8 +93,11 @@ public class CommitRepository {
      */
     public String update(Commit c) throws SQLException {
         String query = "update commits set titulo=?, mensaje=?, fecha=?, idRepo=?, idProyect=?, idAutor=?, idIssue=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,c.getTitulo(),c.getMensaje(),c.getFecha(),c.getId_repositorio(),c.getId_proyecto(),c.getId_autor(),
                 c.getId_issue(),c.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -121,7 +126,11 @@ public class CommitRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete commits where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }

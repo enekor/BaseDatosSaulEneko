@@ -23,6 +23,18 @@ public class RepositoryMapper {
         return returner;
     }
 
+    /**
+     * get a commit pojo from values
+     * @param id commit id
+     * @param titulo commit title
+     * @param mensaje commit message
+     * @param fecha commit date
+     * @param idRepo commit´s repository id
+     * @param idProyect commits project id
+     * @param idAutor commit´s author id
+     * @param idIssue commits issue id
+     * @return commit pojo object
+     */
     public Commit datosToCommitPOJO(String id, String titulo, String mensaje, String fecha, String idRepo, String idProyect, String idAutor, String idIssue){
         Commit returner = new Commit();
 
@@ -38,6 +50,14 @@ public class RepositoryMapper {
         return returner;
     }
 
+    /**
+     * geta  department pojo from values
+     * @param id department id
+     * @param nombre department´s name
+     * @param idJefe department´s boss id
+     * @param presupuesto department budget
+     * @return department pojo object
+     */
     public Departamento datosToDepartamentoPOJO(String id, String nombre, String idJefe,double presupuesto){
         Departamento returner = new Departamento();
 
@@ -49,7 +69,18 @@ public class RepositoryMapper {
         return returner;
     }
 
-    public Issue datosToRepositorioPOJO(String id, String titulo, String texto, String fecha, String idProyecto, String idRepo, boolean solucionado){
+    /**
+     * get issue pojo from values
+     * @param id issue id
+     * @param titulo issue title
+     * @param texto issue description
+     * @param fecha issue date
+     * @param idProyecto issue´s project id
+     * @param idRepo issue´s repository id
+     * @param solucionado if the issue is solved or not
+     * @return issue pojo object
+     */
+    public Issue datosToIssuePOJO(String id, String titulo, String texto, String fecha, String idProyecto, String idRepo, boolean solucionado){
         Issue returner = new Issue();
 
         returner.setId(id);
@@ -63,6 +94,13 @@ public class RepositoryMapper {
         return returner;
     }
 
+    /**
+     * get repository pojo from values
+     * @param id repository id
+     * @param nombre repository name
+     * @param fecha repository date
+     * @return repository pojo object
+     */
     public Repositorio datosToRepositorioPOJO(String id, String nombre, String fecha){
         Repositorio returner = new Repositorio();
 
@@ -72,6 +110,15 @@ public class RepositoryMapper {
         return returner;
     }
 
+    /**
+     * get project pojo from values
+     * @param id project id
+     * @param presupuestoAnual project budget
+     * @param nombre project name
+     * @param inicio project start date
+     * @param fin project finish date
+     * @return project pojo object
+     */
     public Proyecto datosToProyectoPOJO(String id, double presupuestoAnual, String nombre, String inicio, String fin){
         Proyecto returner = new Proyecto();
 

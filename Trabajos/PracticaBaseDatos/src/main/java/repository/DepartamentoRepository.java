@@ -1,8 +1,7 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Departamento;
-import Model.pojo.Programador;
 import mapper.RepositoryMapper;
 
 import java.io.File;
@@ -29,6 +28,7 @@ public class DepartamentoRepository {
         List<Departamento> returner = new ArrayList<>();
         String query = "select * from departamento";
 
+        driver.open();
         Optional<ResultSet> rs = driver.select(query);
 
         while (rs.get().next()) {
@@ -37,8 +37,8 @@ public class DepartamentoRepository {
                     rs.get().getString("nombre"), rs.get().getString("idJefe"),
                     rs.get().getDouble("presupuesto")));
         }
-
         driver.close();
+
         departamentosList = returner;
         return returner;
     }
@@ -53,12 +53,14 @@ public class DepartamentoRepository {
         Departamento returner = null;
         String query = "insert into departamento (id, nombre, idJefe, presupuesto) values (?,?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(query,d.getId(),d.getNombre(),d.getId_jefe(),d.getPresupuesto());
         while(rs.get().next()){
             returner = rm.datosToDepartamentoPOJO(rs.get().getString("id"),
                     rs.get().getString("nombre"), rs.get().getString("idJefe"),
                     rs.get().getDouble("presupuesto"));
         }
+        driver.close();
 
         if(returner!=null){
             departamentosList.add(returner);
@@ -87,7 +89,10 @@ public class DepartamentoRepository {
      */
     public String update(Departamento d) throws SQLException {
         String query = "update departamento set nombre=?, idJefe=?, presupuesto=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,d.getNombre(),d.getId_jefe(),d.getPresupuesto(),d.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -116,7 +121,11 @@ public class DepartamentoRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete departamento where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }

@@ -1,8 +1,7 @@
-package Repository;
+package repository;
 
 import Driver.SQLiteDriver;
 import Model.pojo.Proyecto;
-import Model.pojo.Repositorio;
 import mapper.RepositoryMapper;
 
 import java.io.File;
@@ -30,6 +29,7 @@ public class ProyectoRepository {
         List<Proyecto> returner = new ArrayList<>();
         String query = "select * from proyecto";
 
+        driver.open();
         Optional<ResultSet> rs = driver.select(query);
 
         while (rs.get().next()) {
@@ -38,8 +38,8 @@ public class ProyectoRepository {
                     rs.get().getDouble("presupuestoAnual"),
                     rs.get().getString("nombre"),rs.get().getString("inicio"),rs.get().getString("fin")));
         }
-
         driver.close();
+
         proyectosList = returner;
         return returner;
     }
@@ -54,6 +54,7 @@ public class ProyectoRepository {
         Proyecto returner = null;
         String query = "insert into proyecto (id,presupuestoAnual, nombre, inicio, fin) values (?,?,?,?,?)";
 
+        driver.open();
         Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getPresupuestoAnual(),p.getNombre(),p.getInicio(),p.getFin());
         while(rs.get().next()){
             returner = rw.datosToProyectoPOJO(rs.get().getString("id"),
@@ -63,6 +64,7 @@ public class ProyectoRepository {
                     rs.get().getString("fin"));
 
         }
+        driver.close();
 
         if(returner!=null){
             proyectosList.add(returner);
@@ -92,7 +94,10 @@ public class ProyectoRepository {
      */
     public String update(Proyecto p) throws SQLException {
         String query = "update proyecto set nombre=?, set presupuestoAnual=?, set inicio=?, set fin=? where id=?";
+
+        driver.open();
         int rs = driver.update(query,p.getPresupuestoAnual(),p.getNombre(),p.getInicio(),p.getFin(),p.getId());
+        driver.close();
 
         if(rs==0){
             return null;
@@ -121,7 +126,11 @@ public class ProyectoRepository {
      */
     public String delete(String id) throws SQLException {
         String query = "delete proyecto where id=?";
+
+        driver.open();
         int rs = driver.delete(query,id);
+        driver.close();
+
         if(rs==0){
             return null;
         }
