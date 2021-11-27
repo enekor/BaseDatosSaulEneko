@@ -8,4 +8,20 @@ public class Repositorio {
     private String nombre;
     private String fecha;
     private String id_proyecto;
+
+    public Repositorio(String id, String nombre, String fecha, String id_proyecto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.id_proyecto = id_proyecto;
+    }
+
+    public Repositorio() {
+    }
+
+    public Repositorio(String id, String nombre, String fecha) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+    }
 }

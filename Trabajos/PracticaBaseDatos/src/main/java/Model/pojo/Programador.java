@@ -13,4 +13,13 @@ public class Programador {
     private String id_departamento;
     private String tecnologias;
 
+    public Programador(String id, String nombre, String alta, Double salario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.alta = alta;
+        this.salario = salario;
+    }
+
+    public Programador() {
+    }
 }
