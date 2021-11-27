@@ -1,9 +1,6 @@
 package mapper;
 
-import Model.pojo.Commit;
-import Model.pojo.Departamento;
-import Model.pojo.Issue;
-import Model.pojo.Programador;
+import Model.pojo.*;
 
 public class RepositoryMapper {
 
@@ -52,7 +49,7 @@ public class RepositoryMapper {
         return returner;
     }
 
-    public Issue datosToIssuePOJO(String id,String titulo,String texto,String fecha,String idProyecto,String idRepo,boolean solucionado){
+    public Issue datosToRepositorioPOJO(String id, String titulo, String texto, String fecha, String idProyecto, String idRepo, boolean solucionado){
         Issue returner = new Issue();
 
         returner.setId(id);
@@ -65,4 +62,27 @@ public class RepositoryMapper {
 
         return returner;
     }
+
+    public Repositorio datosToRepositorioPOJO(String id, String nombre, String fecha){
+        Repositorio returner = new Repositorio();
+
+        returner.setId(id);
+        returner.setNombre(nombre);
+        returner.setFecha(fecha);
+        return returner;
+    }
+
+    public Proyecto datosToProyectoPOJO(String id, double presupuestoAnual, String nombre, String inicio, String fin){
+        Proyecto returner = new Proyecto();
+
+        returner.setId(id);
+        returner.setPresupuestoAnual(presupuestoAnual);
+        returner.setNombre(nombre);
+        returner.setInicio(inicio);
+        returner.setFin(fin);
+
+        return returner;
+    }
+
+
 }
