@@ -1,6 +1,6 @@
 package repository;
 
-import Model.pojo.Commit;
+import Model.pojo.Departamento;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,20 +8,18 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-@DisplayName("CommitRepository tests")
-public class CommitRepositoryTest {
+@DisplayName("DepartamentoRepository test")
+public class DepartamentoRepositoryTest {
 
-    private Commit testObject = new Commit("testId","test","mensajeTest","2222-22-22","idRepo",
-            "idProyect","idAutor","idIssue");
-    private CommitRepository repositoryTest = new CommitRepository();
+    private Departamento testObject = new Departamento("testId","test","testIdJefe",445.6);
+    private DepartamentoRepository repositoryTest = new DepartamentoRepository();
 
 
 
     @Test
-    public void insertCommit(){
+    public void insertDepartamento(){
         try {
-            Commit ans = repositoryTest.insert(testObject.getId(),testObject.getTitulo(),testObject.getMensaje(),testObject.getFecha(),testObject.getId_repositorio(),
-                    testObject.getId_proyecto(),testObject.getId_autor(), testObject.getId_issue());
+            Departamento ans = repositoryTest.insert(testObject.getId(),testObject.getNombre(),testObject.getId_jefe(), testObject.getPresupuesto());
             Assertions.assertEquals(testObject,ans);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,9 +27,9 @@ public class CommitRepositoryTest {
     }
 
     @Test
-    public void selectCommit(){
+    public void selectDepartamento(){
         try{
-            List<Commit> ans = repositoryTest.selectAll();
+            List<Departamento> ans = repositoryTest.selectAll();
             Assertions.assertEquals(1,ans.size());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -39,10 +37,9 @@ public class CommitRepositoryTest {
     }
 
     @Test
-    public void updateCommit(){
+    public void updateDepartamento(){
 
-        Commit alter = new Commit("testId","test","mensajeTestAunMasLargo","2222-22-22","idRepo",
-                "idProyect","idAutor","idIssue");
+        Departamento alter = new Departamento("testId","test","testIdJefe",78815.6);
         try{
             String ans = repositoryTest.update(alter);
             Assertions.assertEquals(alter.getId(),ans);
@@ -52,7 +49,7 @@ public class CommitRepositoryTest {
     }
 
     @Test
-    public void deleteCommit(){
+    public void deleteDepartamento(){
         try{
             String ans = repositoryTest.delete(testObject);
             Assertions.assertEquals(testObject.getId(),ans);

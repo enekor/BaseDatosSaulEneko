@@ -18,10 +18,4 @@ public class Repositorio {
 
     public Repositorio() {
     }
-
-    public Repositorio(String id, String nombre, String fecha) {
-        this.id = id;
-        this.nombre = nombre;
-        this.fecha = fecha;
-    }
 }

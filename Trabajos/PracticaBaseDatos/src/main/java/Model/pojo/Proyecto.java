@@ -24,12 +24,4 @@ public class Proyecto {
 
     public Proyecto() {
     }
-
-    public Proyecto(String id, double presupuestoAnual, String nombre, String inicio, String fin) {
-        this.id = id;
-        this.presupuestoAnual = presupuestoAnual;
-        this.nombre = nombre;
-        this.inicio = inicio;
-        this.fin = fin;
-    }
 }

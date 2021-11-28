@@ -5,6 +5,7 @@ import Model.pojo.Commit;
 import mapper.CommitMapper;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,10 +47,24 @@ public class Prueba {
         return ids;
     }
 
+    private static String insert() throws SQLException{
+        driver.open();
+        String a="";
+        Optional<ResultSet> rs = driver.insert("insert into programador (id, nombre, alta, salario) values (?,?,?,?)","test4","test","test",334.4);
+        while(rs.get().next()){
+
+            a=rs.get().getString(1);
+        }
+        driver.close();
+        return a;
+
+    }
+
     public static void main(String[] args) {
-        checkServer();
+        //checkServer();
         try {
-            selectProgramador().forEach(System.out::println);
+            //selectProgramador().forEach(System.out::println);
+            System.out.println(insert());
         } catch (SQLException e) {
             e.printStackTrace();
         }

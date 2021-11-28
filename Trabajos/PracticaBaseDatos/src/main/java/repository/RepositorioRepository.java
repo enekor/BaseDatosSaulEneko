@@ -77,8 +77,8 @@ public class RepositorioRepository {
      * @return added repository
      * @throws SQLException
      */
-    public Repositorio insert(String id, String nombre, String fecha) throws SQLException {
-        return insert(new Repositorio(id,nombre,fecha));
+    public Repositorio insert(String id, String nombre, String fecha,String idProject) throws SQLException {
+        return insert(new Repositorio(id,nombre,fecha,idProject));
     }
 
     /**

@@ -79,11 +79,12 @@ public class ProyectoRepository {
      * @param nombre project name
      * @param inicio project inicio
      * @param fin project fin
+     * @param idRepo project´s repository id
      * @return added project
      * @throws SQLException
      */
-    public Proyecto insert(String id, double presupuestoAnual, String nombre, String inicio, String fin) throws SQLException {
-        return insert(new Proyecto(id,presupuestoAnual,nombre,inicio,fin));
+    public Proyecto insert(String id, double presupuestoAnual, String nombre, String idJefe, String inicio, String fin,String idRepo) throws SQLException {
+        return insert(new Proyecto(id,presupuestoAnual,idJefe,nombre,inicio,fin,idRepo));
     }
 
     /**
