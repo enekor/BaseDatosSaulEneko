@@ -12,7 +12,7 @@ import java.util.List;
 public class RepositorioRepositoryTest {
 
     private Repositorio testObject = new Repositorio("testId","testName","2222-22-22","idProjectTest");
-    private RepositorioRepository repositoryTest = new RepositorioRepository();
+    private RepositorioRepository repositoryTest = RepositorioRepository.getInstance();
 
 
 

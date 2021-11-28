@@ -18,4 +18,5 @@ public class ProyectoDTO {
     private String fin;
     private Repositorio repo;
     List<String> tecnologias;
+    private boolean solucionado;
 }

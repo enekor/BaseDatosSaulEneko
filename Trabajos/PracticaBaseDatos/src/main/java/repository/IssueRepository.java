@@ -20,6 +20,20 @@ public class IssueRepository {
 
     private List<Issue> issuesList = new ArrayList<>();
 
+    public List<Issue> getIssuesList() {
+        return issuesList;
+    }
+
+    private static IssueRepository singleton = null;
+    private IssueRepository(){}
+
+    public static IssueRepository getInstance(){
+        if(singleton==null){
+            singleton=new IssueRepository();
+        }
+        return singleton;
+    }
+
     /**
      * select all issues from the database
      * @return issue list

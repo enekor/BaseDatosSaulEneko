@@ -119,7 +119,7 @@ public class RepositoryMapper {
      * @param fin project finish date
      * @return project pojo object
      */
-    public Proyecto datosToProyectoPOJO(String id, double presupuestoAnual, String nombre, String inicio, String fin){
+    public Proyecto datosToProyectoPOJO(String id, double presupuestoAnual, String nombre, String inicio, String fin,boolean finalizado){
         Proyecto returner = new Proyecto();
 
         returner.setId(id);
@@ -127,6 +127,7 @@ public class RepositoryMapper {
         returner.setNombre(nombre);
         returner.setInicio(inicio);
         returner.setFin(fin);
+        returner.setFinalizado(finalizado);
 
         return returner;
     }

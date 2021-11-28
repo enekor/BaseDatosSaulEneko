@@ -20,6 +20,20 @@ public class ProyectoRepository {
 
     private List<Proyecto> proyectosList = new ArrayList<>();
 
+    public List<Proyecto> getProyectosList() {
+        return proyectosList;
+    }
+
+    private static ProyectoRepository singleton = null;
+    private ProyectoRepository(){}
+
+    public static ProyectoRepository getInstance(){
+        if(singleton==null){
+            singleton=new ProyectoRepository();
+        }
+        return singleton;
+    }
+
     /**
      * select all projects from the database
      * @return projects list
@@ -61,7 +75,8 @@ public class ProyectoRepository {
                     rs.get().getDouble("presupuestoAnual"),
                     rs.get().getString("nombre"),
                     rs.get().getString("inicio"),
-                    rs.get().getString("fin"));
+                    rs.get().getString("fin"),
+                    rs.get().getBoolean("finalizado"));
 
         }
         driver.close();
@@ -83,8 +98,8 @@ public class ProyectoRepository {
      * @return added project
      * @throws SQLException
      */
-    public Proyecto insert(String id, double presupuestoAnual, String nombre, String idJefe, String inicio, String fin,String idRepo) throws SQLException {
-        return insert(new Proyecto(id,presupuestoAnual,idJefe,nombre,inicio,fin,idRepo));
+    public Proyecto insert(String id, double presupuestoAnual, String nombre, String idJefe, String inicio, String fin,String idRepo, boolean finalizado) throws SQLException {
+        return insert(new Proyecto(id,presupuestoAnual,idJefe,nombre,inicio,fin,idRepo,finalizado));
     }
 
     /**

@@ -1,6 +1,7 @@
 package repository;
 
 import Driver.SQLiteDriver;
+import Model.pojo.departemento;
 import Model.pojo.Departamento;
 import mapper.RepositoryMapper;
 
@@ -18,6 +19,20 @@ public class DepartamentoRepository {
     private RepositoryMapper rm = new RepositoryMapper();
 
     private List<Departamento> departamentosList = new ArrayList<>();
+
+    public List<Departamento> getDepartamentosList() {
+        return departamentosList;
+    }
+
+    private static DepartamentoRepository singleton = null;
+    private DepartamentoRepository(){}
+
+    public static DepartamentoRepository getInstance(){
+        if(singleton==null){
+            singleton=new DepartamentoRepository();
+        }
+        return singleton;
+    }
 
     /**
      * select all departments from the database

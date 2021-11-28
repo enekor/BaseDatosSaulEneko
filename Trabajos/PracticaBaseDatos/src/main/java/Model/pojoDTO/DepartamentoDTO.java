@@ -15,6 +15,5 @@ public class DepartamentoDTO {
     private double presupuesto;
     List<Proyecto> proyectosTerminados;
     List<Proyecto> proyectosDesarrollo;
-    List<Programador> historicoJefes;
 
 }

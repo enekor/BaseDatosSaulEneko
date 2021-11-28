@@ -1,7 +1,14 @@
 package mapper;
 
-import Model.pojo.Commit;
+import Model.pojo.*;
 import Model.pojoDTO.CommitDTO;
+import repository.IssueRepository;
+import repository.ProgramadorRepository;
+import repository.ProyectoRepository;
+import repository.RepositorioRepository;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CommitMapper {
     /**
@@ -15,10 +22,27 @@ public class CommitMapper {
                 .titulo(commit.getTitulo())
                 .mensaje(commit.getMensaje())
                 .fecha(commit.getFecha())
-                //.repo(commit.getId_repositorio())
-                //.proyect(commit.getId_proyecto())
-                //.autor(commit.getId_autor())
-                //.issue(commit.getId_issue())
+                .repo(getRepo(commit.getId_repositorio()))
+                .proyect(getProject(commit.getId_proyecto()))
+                .autor(getProgramer(commit.getId_autor()))
+                .issue(getIssue(commit.getId_issue()))
                 .build();
     }
+
+    private Repositorio getRepo(String id){
+        return RepositorioRepository.getInstance().getRepositoriosList().stream().filter(x-> Objects.equals(x.getId(), id)).collect(Collectors.toList()).get(0);
+    }
+
+    private Proyecto getProject(String id){
+        return ProyectoRepository.getInstance().getProyectosList().stream().filter(x-> Objects.equals(x.getId(), id)).collect(Collectors.toList()).get(0);
+    }
+
+    private Programador getProgramer(String id){
+        return ProgramadorRepository.getInstance().getProgramadoresList().stream().filter(x-> Objects.equals(x.getId(), id)).collect(Collectors.toList()).get(0);
+    }
+
+    private Issue getIssue(String id){
+        return IssueRepository.getInstance().getIssuesList().stream().filter(x-> Objects.equals(x.getId(), id)).collect(Collectors.toList()).get(0);
+    }
+
 }

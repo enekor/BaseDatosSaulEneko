@@ -20,6 +20,19 @@ public class RepositorioRepository {
 
     private List<Repositorio> repositoriosList = new ArrayList<>();
 
+    public List<Repositorio> getRepositoriosList() {
+        return repositoriosList;
+    }
+
+    private static RepositorioRepository singleton = null;
+    private RepositorioRepository(){}
+
+    public static RepositorioRepository getInstance(){
+        if(singleton==null){
+            singleton=new RepositorioRepository();
+        }
+        return singleton;
+    }
     /**
      * select all repositories from the database
      * @return repository list

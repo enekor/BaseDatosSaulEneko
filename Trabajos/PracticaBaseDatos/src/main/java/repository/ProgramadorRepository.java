@@ -20,6 +20,20 @@ public class ProgramadorRepository {
 
     private List<Programador> programadoresList = new ArrayList<>();
 
+    public List<Programador> getProgramadoresList() {
+        return programadoresList;
+    }
+
+    private static ProgramadorRepository singleton = null;
+    private ProgramadorRepository(){}
+
+    public static ProgramadorRepository getInstance(){
+        if(singleton==null){
+            singleton=new ProgramadorRepository();
+        }
+        return singleton;
+    }
+
     /**
      * select all programmers from the database
      * @return programmer list

@@ -15,9 +15,24 @@ import java.util.Optional;
 public class CommitRepository {
     static String ruta = System.getProperty("user.dir")+ File.separator+"db"+File.separator+"prueba.sqlite";
     private static SQLiteDriver driver = SQLiteDriver.getInstance(ruta);
+
     private List<Commit> commitsList = new ArrayList<>();
+
+    public List<Commit> getCommitsList() {
+        return commitsList;
+    }
+
     private RepositoryMapper rm = new RepositoryMapper();
-    //insert into commits (id, titulo, mensaje, fecha, idRepo, idProyect, idAutor, idIssue) values (id=?,titulo=?,mensaje=?, fecha=?, idRepo=?, idProyect=?, idAutor=?, idIssue=?)
+
+    private static CommitRepository singleton = null;
+    private CommitRepository(){}
+
+    public static CommitRepository getInstance(){
+        if(singleton==null){
+            singleton=new CommitRepository();
+        }
+        return singleton;
+    }
 
     /**
      * select all Commits from the database
