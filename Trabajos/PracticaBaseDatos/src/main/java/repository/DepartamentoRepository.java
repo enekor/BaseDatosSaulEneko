@@ -1,7 +1,6 @@
 package repository;
 
 import Driver.SQLiteDriver;
-import Model.pojo.departemento;
 import Model.pojo.Departamento;
 import mapper.RepositoryMapper;
 
@@ -71,15 +70,14 @@ public class DepartamentoRepository {
         driver.open();
         Optional<ResultSet> rs = driver.insert(query,d.getId(),d.getNombre(),d.getId_jefe(),d.getPresupuesto());
         while(rs.get().next()){
-            returner = rm.datosToDepartamentoPOJO(rs.get().getString("id"),
-                    rs.get().getString("nombre"), rs.get().getString("idJefe"),
-                    rs.get().getDouble("presupuesto"));
+            if(rs.get().getInt(1)>0){
+                returner = d;
+            }else{
+                returner = null;
+            }
         }
         driver.close();
 
-        if(returner!=null){
-            departamentosList.add(returner);
-        }
         return returner;
     }
 
@@ -135,7 +133,7 @@ public class DepartamentoRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete departamento where id=?";
+        String query = "delete from departamento where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

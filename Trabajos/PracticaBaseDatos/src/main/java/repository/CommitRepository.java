@@ -43,15 +43,15 @@ public class CommitRepository {
         List<Commit> returner = new ArrayList<>();
         String query = "select * from commits";
 
-        Optional<ResultSet> rs = driver.select(query);
-
         driver.open();
+        Optional<ResultSet> rs = driver.select(query);
         while (rs.get().next()) {
 
             returner.add(rm.datosToCommitPOJO(rs.get().getString("id"), rs.get().getString("titulo"), rs.get().getString("mensaje"),
                     rs.get().getString("fecha"), rs.get().getString("idRepo"),rs.get().getString("idProyect"),
                     rs.get().getString("idAutor"), rs.get().getString("idIssue")));
         }
+
         driver.close();
 
         commitsList = returner;
@@ -69,16 +69,15 @@ public class CommitRepository {
         String query = "insert into commits (id, titulo, mensaje, fecha, idRepo, idProyect, idAutor, idIssue) values (?,?,?,?,?,?,?,?)";
 
         driver.open();
-        Optional<ResultSet> rs = driver.insert(c.getId(),c.getTitulo(),c.getMensaje(),c.getFecha(),c.getId_repositorio(),c.getId_proyecto(),c.getId_autor(),c.getId_issue());
+        Optional<ResultSet> rs = driver.insert(query,c.getId(),c.getTitulo(),c.getMensaje(),c.getFecha(),c.getId_repositorio(),c.getId_proyecto(),c.getId_autor(),c.getId_issue());
         while(rs.get().next()){
-            returner = rm.datosToCommitPOJO(rs.get().getString("id"), rs.get().getString("titulo"), rs.get().getString("mensaje"),
-                    rs.get().getString("fecha"), rs.get().getString("idRepo"),rs.get().getString("idProyect"),
-                    rs.get().getString("idAutor"), rs.get().getString("idIssue"));
+            if(rs.get().getInt(1)>0){
+                returner = c;
+            }else{
+                returner = null;
+            }
         }
 
-        if(returner!=null){
-            commitsList.add(returner);
-        }
         driver.close();
         return returner;
     }
@@ -140,7 +139,7 @@ public class CommitRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete commits where id=?";
+        String query = "delete from commits where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

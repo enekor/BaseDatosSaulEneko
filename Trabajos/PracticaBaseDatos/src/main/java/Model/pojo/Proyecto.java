@@ -13,10 +13,10 @@ public class Proyecto {
     private String id_repositorio;
     private boolean finalizado;
 
-    public Proyecto(String id, double presupuestoAnual, String id_jefe, String nombre, String inicio, String fin, String id_repositorio, boolean finalizado) {
+    public Proyecto(String id, double presupuestoAnual, String idJefe, String nombre, String inicio, String fin, String id_repositorio, boolean finalizado) {
         this.id = id;
         this.presupuestoAnual = presupuestoAnual;
-        this.id_jefe = id_jefe;
+        this.id_jefe = idJefe;
         this.nombre = nombre;
         this.inicio = inicio;
         this.fin = fin;

@@ -49,8 +49,8 @@ public class ProyectoRepository {
         while (rs.get().next()) {
 
             returner.add(rw.datosToProyectoPOJO(rs.get().getString("id"),
-                    rs.get().getDouble("presupuestoAnual"),
-                    rs.get().getString("nombre"),rs.get().getString("inicio"),rs.get().getString("fin")));
+                    rs.get().getDouble("presupuesto"),
+                    rs.get().getString("nombre"),rs.get().getString("inicio"),rs.get().getString("fin"),rs.get().getBoolean("finalizado")));
         }
         driver.close();
 
@@ -66,24 +66,19 @@ public class ProyectoRepository {
      */
     public Proyecto insert(Proyecto p) throws SQLException {
         Proyecto returner = null;
-        String query = "insert into proyecto (id,presupuestoAnual, nombre, inicio, fin) values (?,?,?,?,?)";
+        String query = "insert into proyecto (id,presupuesto, idJefe, nombre, inicio, fin, idRepo, finalizado) values (?,?,?,?,?,?,?,?)";
 
         driver.open();
-        Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getPresupuestoAnual(),p.getNombre(),p.getInicio(),p.getFin());
+        Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getPresupuestoAnual(),p.getId_jefe(),p.getNombre(),p.getInicio(),p.getFin(),p.getId_repositorio(),p.getFin());
         while(rs.get().next()){
-            returner = rw.datosToProyectoPOJO(rs.get().getString("id"),
-                    rs.get().getDouble("presupuestoAnual"),
-                    rs.get().getString("nombre"),
-                    rs.get().getString("inicio"),
-                    rs.get().getString("fin"),
-                    rs.get().getBoolean("finalizado"));
+            if(rs.get().getInt(1)>0){
+                returner = p;
+            }else {
+                returner = null;
+            }
 
         }
         driver.close();
-
-        if(returner!=null){
-            proyectosList.add(returner);
-        }
         return returner;
     }
 
@@ -98,7 +93,7 @@ public class ProyectoRepository {
      * @return added project
      * @throws SQLException
      */
-    public Proyecto insert(String id, double presupuestoAnual, String nombre, String idJefe, String inicio, String fin,String idRepo, boolean finalizado) throws SQLException {
+    public Proyecto insert(String id, double presupuestoAnual, String idJefe,String nombre, String inicio, String fin,String idRepo, boolean finalizado) throws SQLException {
         return insert(new Proyecto(id,presupuestoAnual,idJefe,nombre,inicio,fin,idRepo,finalizado));
     }
 
@@ -109,10 +104,10 @@ public class ProyectoRepository {
      * @throws SQLException
      */
     public String update(Proyecto p) throws SQLException {
-        String query = "update proyecto set nombre=?, set presupuestoAnual=?, set inicio=?, set fin=? where id=?";
+        String query = "update proyecto set presupuesto=?, idJefe=?, nombre=?, inicio=?, fin=?, idRepo=?, finalizado=? where id=?";
 
         driver.open();
-        int rs = driver.update(query,p.getPresupuestoAnual(),p.getNombre(),p.getInicio(),p.getFin(),p.getId());
+        int rs = driver.update(query,p.getPresupuestoAnual(),p.getId_jefe(),p.getNombre(),p.getInicio(),p.getFin(),p.getId_repositorio(),p.getFin(),p.getId());
         driver.close();
 
         if(rs==0){
@@ -141,7 +136,7 @@ public class ProyectoRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete proyecto where id=?";
+        String query = "delete from proyecto where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

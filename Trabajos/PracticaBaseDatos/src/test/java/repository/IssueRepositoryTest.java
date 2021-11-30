@@ -1,25 +1,25 @@
 package repository;
 
 import Model.pojo.Issue;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
 @DisplayName("IssueRepository test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IssueRepositoryTest {
 
     private Issue testObject = new Issue("testId","test","testText","2222-22-22","testProyId","testRepoId",true);
-    private IssueRepository repositoryTest = new IssueRepository();
+    private IssueRepository repositoryTest = IssueRepository.getInstance();
 
 
 
     @Test
+    @Order(1)
     public void insertIssue(){
         try {
-            Issue ans = repositoryTest.insert(testObject.getId(),testObject.getTitulo(),testObject.getTexto(),testObject.getFecha(),testObject.getId_proyecto(),
+           Issue ans = repositoryTest.insert(testObject.getId(),testObject.getTitulo(),testObject.getTexto(),testObject.getFecha(),testObject.getId_proyecto(),
                     testObject.getId_repositorio(),testObject.isSolucionado());
             Assertions.assertEquals(testObject,ans);
         } catch (SQLException e) {
@@ -28,6 +28,7 @@ public class IssueRepositoryTest {
     }
 
     @Test
+    @Order(2)
     public void selectIssue(){
         try{
             List<Issue> ans = repositoryTest.selectAll();
@@ -38,6 +39,7 @@ public class IssueRepositoryTest {
     }
 
     @Test
+    @Order(3)
     public void updateIssue(){
 
         Issue alter = new Issue("testId","test","testTextAunMasLargo","2222-22-22","testProyId","testRepoId",false);
@@ -50,6 +52,7 @@ public class IssueRepositoryTest {
     }
 
     @Test
+    @Order(4)
     public void deleteIssue(){
         try{
             String ans = repositoryTest.delete(testObject);

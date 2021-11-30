@@ -1,23 +1,23 @@
 package repository;
 
 import Model.pojo.Commit;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
 @DisplayName("CommitRepository tests")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CommitRepositoryTest {
 
     private Commit testObject = new Commit("testId","test","mensajeTest","2222-22-22","idRepo",
             "idProyect","idAutor","idIssue");
-    private CommitRepository repositoryTest = new CommitRepository();
+    private CommitRepository repositoryTest = CommitRepository.getInstance();
 
 
 
     @Test
+    @Order(1)
     public void insertCommit(){
         try {
             Commit ans = repositoryTest.insert(testObject.getId(),testObject.getTitulo(),testObject.getMensaje(),testObject.getFecha(),testObject.getId_repositorio(),
@@ -29,6 +29,7 @@ public class CommitRepositoryTest {
     }
 
     @Test
+    @Order(2)
     public void selectCommit(){
         try{
             List<Commit> ans = repositoryTest.selectAll();
@@ -39,6 +40,7 @@ public class CommitRepositoryTest {
     }
 
     @Test
+    @Order(3)
     public void updateCommit(){
 
         Commit alter = new Commit("testId","test","mensajeTestAunMasLargo","2222-22-22","idRepo",
@@ -52,6 +54,7 @@ public class CommitRepositoryTest {
     }
 
     @Test
+    @Order(4)
     public void deleteCommit(){
         try{
             String ans = repositoryTest.delete(testObject);

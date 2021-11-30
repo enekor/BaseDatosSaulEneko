@@ -47,16 +47,20 @@ public class Prueba {
         return ids;
     }
 
-    private static String insert() throws SQLException{
+    private static boolean insert() throws SQLException{
         driver.open();
-        String a="";
-        Optional<ResultSet> rs = driver.insert("insert into programador (id, nombre, alta, salario) values (?,?,?,?)","test4","test","test",334.4);
+        boolean returner=false;
+        Optional<ResultSet> rs = driver.insert("insert into programador (id, nombre, alta, salario) values (?,?,?,?)","1","test","test",334.4);
         while(rs.get().next()){
 
-            a=rs.get().getString(1);
+            String a=rs.get().getString(1);
+            if(Integer.parseInt(a)>0){
+                returner = true;
+            }
+            else returner = false;
         }
         driver.close();
-        return a;
+        return returner;
 
     }
 

@@ -72,13 +72,11 @@ public class ProgramadorRepository {
         Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getNombre(),p.getAlta(),p.getSalario());
         while(rs.get().next()){
             //probar a crear variables sueltas y meterlas en el metodo de crear pojo
-            returner = rw.datosToPrgramadorPOJO(rs.get().getString("id"),
-                    rs.get().getString("nombre"), rs.get().getString("alta"),
-                    rs.get().getDouble("salario"));
-        }
-
-        if(returner!=null){
-            programadoresList.add(returner);
+            if(rs.get().getInt(1)>0){
+                returner = p;
+            }else {
+                returner = null;
+            }
         }
         driver.close();
         return returner;
@@ -136,7 +134,7 @@ public class ProgramadorRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete programador where id=?";
+        String query = "delete from programador where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

@@ -66,20 +66,19 @@ public class IssueRepository {
      */
     public Issue insert(Issue i) throws SQLException {
         Issue returner = null;
-        String query = "insert into issue (id, titulo, texto, fecha, idProyecto, idRepo, solucionado) values (?,?,?,?,?,?,?,?)";
+        String query = "insert into issue (id, titulo, texto, fecha, idProyecto, idRepo, solucionado) values (?,?,?,?,?,?,?)";
 
         driver.open();
         Optional<ResultSet> rs = driver.insert(query,i.getId(),i.getTitulo(),i.getTexto(),i.getFecha(),i.getId_proyecto(),i.getId_repositorio(),i.isSolucionado());
         while(rs.get().next()){
-            returner = rm.datosToIssuePOJO(rs.get().getString("id"),
-                    rs.get().getString("titulo"), rs.get().getString("texto"), rs.get().getString("fecha"),
-                    rs.get().getString("idProyecto"), rs.get().getString("idRepo"),rs.get().getBoolean("solucionado"));
+            if(rs.get().getInt(1)>0){
+                returner = i;
+            }else{
+                returner = null;
+            }
         }
         driver.close();
 
-        if(returner!=null){
-            issuesList.add(returner);
-        }
         return returner;
     }
 
@@ -138,7 +137,7 @@ public class IssueRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete issue where id=?";
+        String query = "delete from issue where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

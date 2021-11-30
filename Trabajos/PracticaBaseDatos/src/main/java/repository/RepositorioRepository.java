@@ -65,20 +65,19 @@ public class RepositorioRepository {
      */
     public Repositorio insert(Repositorio r) throws SQLException {
         Repositorio returner = null;
-        String query = "insert into repositorio (id, nombre, fecha) values (?,?,?)";
+        String query = "insert into repositorio (id, nombre, fecha, idProyecto) values (?,?,?,?)";
 
         driver.open();
-        Optional<ResultSet> rs = driver.insert(query,r.getId(),r.getNombre(),r.getFecha());
+        Optional<ResultSet> rs = driver.insert(query,r.getId(),r.getNombre(),r.getFecha(),r.getId_proyecto());
         while(rs.get().next()){
-            returner = rw.datosToRepositorioPOJO(rs.get().getString("id"),
-                    rs.get().getString("nombre"),
-                    rs.get().getString("fecha"));
+           if(rs.get().getInt(1)>0){
+               returner = r;
+           }else{
+               returner = null;
+           }
         }
         driver.close();
-
-        if(returner!=null){
-            repositoriosList.add(returner);
-        }
+        
         return returner;
     }
 
@@ -101,10 +100,10 @@ public class RepositorioRepository {
      * @throws SQLException
      */
     public String update(Repositorio r) throws SQLException {
-        String query = "update repositorio set nombre=?, fecha=? where id=?";
+        String query = "update repositorio set nombre=?, fecha=?, idProyecto=? where id=?";
 
         driver.open();
-        int rs = driver.update(query,r.getNombre(),r.getFecha(),r.getId());
+        int rs = driver.update(query,r.getNombre(),r.getFecha(),r.getId_proyecto(),r.getId());
         driver.close();
 
         if(rs==0){
@@ -133,7 +132,7 @@ public class RepositorioRepository {
      * @throws SQLException
      */
     public String delete(String id) throws SQLException {
-        String query = "delete repositorio where id=?";
+        String query = "delete from repositorio where id=?";
 
         driver.open();
         int rs = driver.delete(query,id);

@@ -1,22 +1,22 @@
 package repository;
 
 import Model.pojo.Programador;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
 @DisplayName("ProgramadorRepository test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProgramadorRepositoryTest {
 
     private Programador testObject = new Programador("testId","juanito","20202-22-22",234.5);
-    private ProgramadorRepository repositoryTest = new ProgramadorRepository();
+    private ProgramadorRepository repositoryTest = ProgramadorRepository.getInstance();
 
 
 
     @Test
+    @Order(1)
     public void insertProgramador(){
         try {
             Programador ans = repositoryTest.insert(testObject.getId(),testObject.getNombre(),testObject.getAlta(), testObject.getSalario());
@@ -27,6 +27,7 @@ public class ProgramadorRepositoryTest {
     }
 
     @Test
+    @Order(2)
     public void selectProgramador(){
         try{
             List<Programador> ans = repositoryTest.selectAll();
@@ -36,7 +37,9 @@ public class ProgramadorRepositoryTest {
         }
     }
 
+
     @Test
+    @Order(3)
     public void updateProgramador(){
 
         Programador alter = new Programador("testId","jorge","20202-22-22",778.7);
@@ -49,6 +52,7 @@ public class ProgramadorRepositoryTest {
     }
 
     @Test
+    @Order(4)
     public void deleteProgramador(){
         try{
             String ans = repositoryTest.delete(testObject);
