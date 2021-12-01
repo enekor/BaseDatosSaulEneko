@@ -50,7 +50,7 @@ public class ProgramadorRepository {
 
             returner.add(rw.datosToPrgramadorPOJO(rs.get().getString("id"),
                     rs.get().getString("nombre"), rs.get().getString("alta"),
-                    rs.get().getDouble("salario")));
+                    rs.get().getDouble("salario"),rs.get().getString("passwd")));
         }
         driver.close();
 
@@ -66,10 +66,10 @@ public class ProgramadorRepository {
      */
     public Programador insert(Programador p) throws SQLException {
         Programador returner = null;
-        String query = "insert into programador (id, nombre, alta, salario) values (?,?,?,?)";
+        String query = "insert into programador (id, nombre, alta, salario, passwd) values (?,?,?,?,?)";
 
         driver.open();
-        Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getNombre(),p.getAlta(),p.getSalario());
+        Optional<ResultSet> rs = driver.insert(query,p.getId(),p.getNombre(),p.getAlta(),p.getSalario(),p.getPasswd());
         while(rs.get().next()){
             //probar a crear variables sueltas y meterlas en el metodo de crear pojo
             if(rs.get().getInt(1)>0){
@@ -91,8 +91,8 @@ public class ProgramadorRepository {
      * @return added programmer
      * @throws SQLException
      */
-    public Programador insert(String id, String nombre, String alta, double salario) throws SQLException {
-        return insert(new Programador(id,nombre,alta,salario));
+    public Programador insert(String id, String nombre, String alta, double salario,String passwd) throws SQLException {
+        return insert(new Programador(id,nombre,alta,salario,passwd));
     }
 
     /**
@@ -102,10 +102,10 @@ public class ProgramadorRepository {
      * @throws SQLException
      */
     public String update(Programador p) throws SQLException {
-        String query = "update programador set nombre=?, alta=?, salario=? where id=?";
+        String query = "update programador set nombre=?, alta=?, salario=?, passwd=? where id=?";
 
         driver.open();
-        int rs = driver.update(query,p.getNombre(),p.getAlta(),p.getSalario(),p.getId());
+        int rs = driver.update(query,p.getNombre(),p.getAlta(),p.getSalario(),p.getPasswd(),p.getId());
         driver.close();
 
         if(rs==0){

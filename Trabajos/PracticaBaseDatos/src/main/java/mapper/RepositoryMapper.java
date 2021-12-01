@@ -12,13 +12,14 @@ public class RepositoryMapper {
      * @param salario programmers salary
      * @return the programmer
      */
-    public Programador datosToPrgramadorPOJO(String id, String nombre, String alta, double salario){
+    public Programador datosToPrgramadorPOJO(String id, String nombre, String alta, double salario, String passwd){
         Programador returner = new Programador();
 
         returner.setId(id);
         returner.setNombre(nombre);
         returner.setAlta(alta);
         returner.setSalario(salario);
+        returner.setPasswd(passwd);
 
         return returner;
     }
