@@ -74,7 +74,10 @@ public class ProgramadorRepository {
             //probar a crear variables sueltas y meterlas en el metodo de crear pojo
             if(rs.get().getInt(1)>0){
                 returner = p;
+<<<<<<< HEAD
                 programadoresList.add(p);
+=======
+>>>>>>> Develop
             }else {
                 returner = null;
             }

@@ -29,6 +29,7 @@ public class Export {
 
     public void toXML(Object o){
 
+<<<<<<< HEAD
         System.out.println();
     }
 
@@ -38,6 +39,15 @@ public class Export {
     }
 
     /*private String getAllCommits(){
+=======
+    }
+
+    public void toJSon(Object o){
+
+    }
+
+    private String getAllCommits(){
+>>>>>>> Develop
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
         try {
             return prettyGson.toJson(commitRepository.selectAll());
@@ -257,5 +267,9 @@ public class Export {
             e.printStackTrace();
             return "error in deleteRepositorio to json";
         }
+<<<<<<< HEAD
     }*/
+=======
+    }
+>>>>>>> Develop
 }

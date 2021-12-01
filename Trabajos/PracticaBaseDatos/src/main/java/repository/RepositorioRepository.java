@@ -72,7 +72,10 @@ public class RepositorioRepository {
         while(rs.get().next()){
            if(rs.get().getInt(1)>0){
                returner = r;
+<<<<<<< HEAD
                repositoriosList.add(r);
+=======
+>>>>>>> Develop
            }else{
                returner = null;
            }

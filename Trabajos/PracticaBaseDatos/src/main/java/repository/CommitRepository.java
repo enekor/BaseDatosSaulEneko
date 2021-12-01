@@ -73,7 +73,10 @@ public class CommitRepository {
         while(rs.get().next()){
             if(rs.get().getInt(1)>0){
                 returner = c;
+<<<<<<< HEAD
                 commitsList.add(c);
+=======
+>>>>>>> Develop
             }else{
                 returner = null;
             }

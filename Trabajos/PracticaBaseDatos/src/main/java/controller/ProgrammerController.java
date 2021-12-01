@@ -1,5 +1,6 @@
 package controller;
 
+<<<<<<< HEAD
 import Model.pojo.Departamento;
 import Model.pojo.Programador;
 import repository.DepartamentoRepository;
@@ -135,4 +136,8 @@ public class ProgrammerController {
             else export.toXML("no hay Programadors guardados en la base de datos, puebe a aniadir uno primero");
         }
     }
+=======
+public class ProgrammerController {
+
+>>>>>>> Develop
 }
