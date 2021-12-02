@@ -73,10 +73,9 @@ public class IssueRepository {
         while(rs.get().next()){
             if(rs.get().getInt(1)>0){
                 returner = i;
-<<<<<<< HEAD
+
                 issuesList.add(i);
-=======
->>>>>>> Develop
+
             }else{
                 returner = null;
             }

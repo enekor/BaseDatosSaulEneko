@@ -21,11 +21,7 @@ public class ProgramadorMapper {
                 .id_programador(programador.getId())
                 .nombre(programador.getNombre())
                 .alta(programador.getAlta())
-<<<<<<< HEAD
                 //.trabajo(getTrabajo(programador.getId_departamento()))
-=======
-                .trabajo(getTrabajo(programador.getId_departamento()))
->>>>>>> Develop
                 //.proyectos()
                 //.commits()
                 //.issues()

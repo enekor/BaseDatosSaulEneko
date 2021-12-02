@@ -1,7 +1,7 @@
 package repository;
 
 import Model.pojo.Programador;
-import controller.PasswdEncoder;
+import controller.extra.PasswdEncoder;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

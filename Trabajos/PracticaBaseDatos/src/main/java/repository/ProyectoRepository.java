@@ -73,10 +73,9 @@ public class ProyectoRepository {
         while(rs.get().next()){
             if(rs.get().getInt(1)>0){
                 returner = p;
-<<<<<<< HEAD
+
                 proyectosList.add(p);
-=======
->>>>>>> Develop
+
             }else {
                 returner = null;
             }

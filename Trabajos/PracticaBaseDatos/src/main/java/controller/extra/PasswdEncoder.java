@@ -1,4 +1,4 @@
-package controller;
+package controller.extra;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

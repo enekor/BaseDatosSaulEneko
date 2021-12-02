@@ -72,10 +72,8 @@ public class DepartamentoRepository {
         while(rs.get().next()){
             if(rs.get().getInt(1)>0){
                 returner = d;
-<<<<<<< HEAD
                 departamentosList.add(d);
-=======
->>>>>>> Develop
+
             }else{
                 returner = null;
             }

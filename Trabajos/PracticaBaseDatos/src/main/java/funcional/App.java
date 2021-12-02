@@ -7,6 +7,7 @@ import controller.CommitController;
 import controller.DepartamentoController;
 import controller.ProgrammerController;
 
+import javax.xml.bind.JAXBException;
 import java.sql.SQLException;
 
 public class App {
@@ -48,7 +49,7 @@ public class App {
 
             dc.deleteDepartamento("testId",true);
             pc.deleteProgramador("testId",true);
-        } catch (SQLException e) {
+        } catch (SQLException | JAXBException e) {
             e.printStackTrace();
         }
     }
