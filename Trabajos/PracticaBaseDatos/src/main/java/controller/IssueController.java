@@ -26,8 +26,15 @@ public class IssueController {
         repositorio = IssueRepository.getInstance();
         export = Export.getInstance();
     }
-
+    /**
+     * adds new issue to database, if it already exists or something wrong happens, returns a message that says it
+     * @param c issue to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void newIssue(Issue c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(!repositorio.getIssuesList().contains(c)){
             Issue ans = repositorio.insert(c);
 
@@ -50,8 +57,15 @@ public class IssueController {
             else export.toXML("no se ha podido crear el Issue porque ya existe","error");
         }
     }
-
+    /**
+     * updates a issue from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param c issue to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void updateIssue(Issue c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getIssuesList().contains(c)){
             String ans = repositorio.update(c);
 
@@ -74,8 +88,15 @@ public class IssueController {
             else export.toXML("no se ha podido actualizar el Issue porque no existe","error");
         }
     }
-
+    /**
+     * deletes a issue from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param id issue id to delete
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void deleteIssue(String id, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getIssuesList().stream().filter(x -> Objects.equals(x.getId(), id)).count() !=0){
             String ans = repositorio.delete(id);
 
@@ -98,8 +119,14 @@ public class IssueController {
             else export.toXML("no se ha podido borrar el Issue porque no existe","error");
         }
     }
-
-    public void selectIssues(boolean JSon) throws JAXBException {
+    /**
+     * gets all the issues from the database, if it´s empty or something wrong happens, returns a message that says it
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws JAXBException
+     * @throws SQLException
+     */
+    public void selectIssues(boolean JSon) throws JAXBException, SQLException {
+        repositorio.selectAll();
         if(!repositorio.getIssuesList().isEmpty()){
             List<Issue> ans = repositorio.getIssuesList();
 

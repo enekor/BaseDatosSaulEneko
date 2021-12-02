@@ -25,6 +25,12 @@ public class Export {
         return export;
     }
 
+    /**
+     * returns throughout the terminal in xml style of the object
+     * @param o
+     * @param tipo
+     * @throws JAXBException
+     */
     public void toXML(Object o,String tipo) throws JAXBException {
         JAXBContext jaxbContext=null;
         if(!tipo.equals("error")){
@@ -41,6 +47,10 @@ public class Export {
         jaxbMarshaller.marshal(o, System.out);
     }
 
+    /**
+     * returns throughout the terminal in xml style of the object
+     * @param o
+     */
     public void toJSon(Object o){
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(prettyGson.toJson(o));

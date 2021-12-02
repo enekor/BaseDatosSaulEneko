@@ -29,7 +29,15 @@ public class DepartamentoController {
         export = Export.getInstance();
     }
 
+    /**
+     * adds new department to database, if it already exists or something wrong happens, returns a message that says it
+     * @param c department to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void newDepartamento(Departamento c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if (!repositorio.getDepartamentosList().contains(c)) {
             Departamento ans = repositorio.insert(c);
 
@@ -51,7 +59,15 @@ public class DepartamentoController {
         }
     }
 
+    /**
+     * updates a department from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param c departament to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void updateDepartamento(Departamento c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if (repositorio.getDepartamentosList().contains(c)) {
             String ans = repositorio.update(c);
 
@@ -73,7 +89,15 @@ public class DepartamentoController {
         }
     }
 
+    /**
+     * deletes a department from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param id departament´s id to delete
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void deleteDepartamento(String id, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if (repositorio.getDepartamentosList().stream().filter(x -> Objects.equals(x.getId(), id)).count() != 0) {
             String ans = repositorio.delete(id);
 
@@ -95,7 +119,14 @@ public class DepartamentoController {
         }
     }
 
-    public void selectDepartamentos(boolean JSon) throws JAXBException {
+    /**
+     * gets all the departments from the database, if it´s empty or something wrong happens, returns a message that says it
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws JAXBException
+     * @throws SQLException
+     */
+    public void selectDepartamentos(boolean JSon) throws JAXBException, SQLException {
+        repositorio.selectAll();
         if (!repositorio.getDepartamentosList().isEmpty()) {
             List<Departamento> ans = repositorio.getDepartamentosList();
 

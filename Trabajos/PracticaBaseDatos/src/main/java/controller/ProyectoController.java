@@ -26,8 +26,15 @@ public class ProyectoController {
         repositorio = ProyectoRepository.getInstance();
         export = Export.getInstance();
     }
-
+    /**
+     * adds new project to database, if it already exists or something wrong happens, returns a message that says it
+     * @param c project to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void newProyecto(Proyecto c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(!repositorio.getProyectosList().contains(c)){
             Proyecto ans = repositorio.insert(c);
 
@@ -50,8 +57,15 @@ public class ProyectoController {
             else export.toXML("no se ha podido crear el Proyecto porque ya existe","error");
         }
     }
-
+    /**
+     * updates a project from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param c project to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void updateProyecto(Proyecto c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getProyectosList().contains(c)){
             String ans = repositorio.update(c);
 
@@ -74,8 +88,15 @@ public class ProyectoController {
             else export.toXML("no se ha podido actualizar el Proyecto porque no existe","error");
         }
     }
-
+    /**
+     * deletes a project from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param id project id to delete
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void deleteProyecto(String id, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getProyectosList().stream().filter(x -> Objects.equals(x.getId(), id)).count() !=0){
             String ans = repositorio.delete(id);
 
@@ -98,8 +119,14 @@ public class ProyectoController {
             else export.toXML("no se ha podido borrar el Proyecto porque no existe","error");
         }
     }
-
-    public void selectProyectos(boolean JSon) throws JAXBException {
+    /**
+     * gets all the project from the database, if it´s empty or something wrong happens, returns a message that says it
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws JAXBException
+     * @throws SQLException
+     */
+    public void selectProyectos(boolean JSon) throws JAXBException, SQLException {
+        repositorio.selectAll();
         if(!repositorio.getProyectosList().isEmpty()){
             List<Proyecto> ans = repositorio.getProyectosList();
 

@@ -28,7 +28,15 @@ public class CommitController {
         export = Export.getInstance();
     }
 
+    /**
+     * adds a new commit to the database, if it already exists or something wrong happens, returns a message that says it
+     * @param c commit to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void newCommit(Commit c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(!repositorio.getCommitsList().contains(c)){
             Commit ans = repositorio.insert(c);
 
@@ -52,7 +60,15 @@ public class CommitController {
         }
     }
 
+    /**
+     * updates the commit, if it doesnt exist or something wrong happens, returns a message that says it
+     * @param c commit to update
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void updateCommit(Commit c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getCommitsList().contains(c)){
             String ans = repositorio.update(c);
 
@@ -76,7 +92,15 @@ public class CommitController {
         }
     }
 
+    /**
+     * deletes a commit from the database, if doesnt exist or something wrong happens, returns a message that says it
+     * @param id to delete commit´s id
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void deleteCommit(String id, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getCommitsList().stream().filter(x -> Objects.equals(x.getId(), id)).count() !=0){
             String ans = repositorio.delete(id);
 
@@ -100,7 +124,14 @@ public class CommitController {
         }
     }
 
-    public void selectCommits(boolean JSon) throws JAXBException {
+    /**
+     * gets all commits from database, if it´s empty or something wrong happens returns a message that says it
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws JAXBException
+     * @throws SQLException
+     */
+    public void selectCommits(boolean JSon) throws JAXBException, SQLException {
+        repositorio.selectAll();
         if(!repositorio.getCommitsList().isEmpty()){
             List<Commit> ans = repositorio.getCommitsList();
 

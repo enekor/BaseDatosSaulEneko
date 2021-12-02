@@ -33,15 +33,22 @@ public class ProgrammerController {
         departamento = DepartamentoRepository.getInstance();
     }
 
+    /**
+     * adds a new programmer to the database, if it´s a departments boss, it returns an alert saying that cant be thats departments employee,
+     * if it already exists or something wrong happens, returns a message that says it
+     * @param c programmer to add
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void newProgramador(Programador c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         Optional<List<Departamento>> d = Optional.ofNullable(departamento.getDepartamentosList().stream().filter(x -> x.getId_jefe().equals(c.getId())).collect(Collectors.toList()));
         if(d.isPresent()){
             if(JSon){
-                export.toJSon("Alerta, el programador insertado no puede ser trabajador del departamento "+d.get().get(0).getId()+
-                        " ya que es su jefe");
+                export.toJSon("Alerta, el programador insertado no puede ser trabajador del departamento ya que es su jefe");
             }
-            else  export.toXML("Alerta, el programador insertado no puede ser trabajador del departamento "+d.get().get(0).getId()+
-                    " ya que es su jefe","error");
+            else  export.toXML("Alerta, el programador insertado no puede ser trabajador del departamento ya que es su jefe","error");
         }
         if(!repositorio.getProgramadoresList().contains(c)){
             Programador ans = repositorio.insert(c);
@@ -66,7 +73,15 @@ public class ProgrammerController {
         }
     }
 
+    /**
+     * updates a programmer from the database, if it dont exists or something wrong happens, returns a message that says it
+     * @param c programmer to update
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void updateProgramador(Programador c, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getProgramadoresList().contains(c)){
             String ans = repositorio.update(c);
 
@@ -90,7 +105,15 @@ public class ProgrammerController {
         }
     }
 
+    /**
+     * deletes a programm from an id, if it dont exists or something wrong happens, returns a message that says it
+     * @param id programmer id to delete
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws SQLException
+     * @throws JAXBException
+     */
     public void deleteProgramador(String id, boolean JSon) throws SQLException, JAXBException {
+        repositorio.selectAll();
         if(repositorio.getProgramadoresList().stream().filter(x -> Objects.equals(x.getId(), id)).count() !=0){
             String ans = repositorio.delete(id);
 
@@ -114,7 +137,14 @@ public class ProgrammerController {
         }
     }
 
-    public void selectProgramadors(boolean JSon) throws JAXBException {
+    /**
+     * gets all the programmers from the database, if it´s empty or something wrong happens, returns a message that says it
+     * @param JSon if want it in json (true) or xml(false)
+     * @throws JAXBException
+     * @throws SQLException
+     */
+    public void selectProgramadors(boolean JSon) throws JAXBException, SQLException {
+        repositorio.selectAll();
         if(!repositorio.getProgramadoresList().isEmpty()){
             List<Programador> ans = repositorio.getProgramadoresList();
 
