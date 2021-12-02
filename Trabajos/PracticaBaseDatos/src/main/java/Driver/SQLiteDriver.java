@@ -65,16 +65,13 @@ public class SQLiteDriver {
      * Puede ser directa "hardcodeada" o asignada dinámicamente a traves de ficheros .env o properties
      */
     private void initConfig() {
-        // Leemos los datos de la base de datos que pueden estar en
-        // porperties o en .env
-        // imaginemos que el usuario y pasword estaán en .env y el resto en application.properties
-        // si no los rellenamos aquí.
+
         serverUrl = "localhost";
         serverPort = "3306";
-        dataBaseName = "blog";
+        dataBaseName = "trabajoES";
         jdbcDriver = "org.sqlite.JDBC";
-        user = "blog";
-        password = "blog1234";
+        user = "trabajoES";
+        password = "trabajoES1234";
     }
 
     /**
@@ -83,10 +80,9 @@ public class SQLiteDriver {
      * @throws SQLException Servidor no accesible por problemas de conexión o datos de acceso incorrectos
      */
     public void open() throws SQLException {
-        //MySQL jdbc:mysql://localhost/prueba", "root", "1daw"
+
         String url = "jdbc:sqlite:"+this.ruta;
-        // System.out.println(url);
-        // Obtenemos la conexión
+
         connection = DriverManager.getConnection(url, user, password);
     }
 
@@ -110,7 +106,7 @@ public class SQLiteDriver {
      */
     private ResultSet executeQuery(@NonNull String querySQL, Object... params) throws SQLException {
         preparedStatement = connection.prepareStatement(querySQL);
-        // Vamos a pasarle los parametros usando preparedStatement
+
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i + 1, params[i]);
         }
@@ -153,9 +149,9 @@ public class SQLiteDriver {
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
     public Optional<ResultSet> insert(@NonNull String insertSQL, Object... params) throws SQLException {
-        // Con return generated keys obtenemos las claves generadas si las claves es autonumerica por ejemplo
+
         preparedStatement = connection.prepareStatement(insertSQL, preparedStatement.RETURN_GENERATED_KEYS);
-        // Vamos a pasarle los parametros usando preparedStatement
+
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i + 1, params[i]);
         }
@@ -196,9 +192,9 @@ public class SQLiteDriver {
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
     private int updateQuery(@NonNull String genericSQL, Object... params) throws SQLException {
-        // Con return generated keys obtenemos las claves generadas
+
         preparedStatement = connection.prepareStatement(genericSQL);
-        // Vamos a pasarle los parametros usando preparedStatement
+
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i + 1, params[i]);
         }
